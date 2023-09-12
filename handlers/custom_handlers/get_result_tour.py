@@ -3,6 +3,7 @@ from keyboards.reply import keyboards
 from config_data import config
 from telebot.types import Message
 from helper_function import helper_function
+from image_creator import table_creator
 
 
 
@@ -27,9 +28,9 @@ def check_result_tour(message: Message):
         self_res = base.get_forecast_match(message.chat.id, match[0])
         points += helper_function.counting_of_points(match[1], self_res[0])
         data.append([match[0], match[1], self_res[0], helper_function.counting_of_points(match[1], self_res[0])])
-    result_tour(data, message.text, points)
+    table_creator.result_tour(data, message.text, points)
     img = open("result_tour.png", 'rb')
     bot.send_photo(message.chat.id, img, reply_markup=keyboards.main_menu_marcup())
-    points_tour(base.get_points_of_tour(config.TOUR_DCT[currtour]), config.TOUR_DCT[currtour])
+    table_creator.points_tour(base.get_points_of_tour(config.TOUR_DCT[currtour]), config.TOUR_DCT[currtour])
     img = open("points_tour.png", 'rb')
     bot.send_photo(message.chat.id, img, reply_markup=keyboards.main_menu_marcup())

@@ -1,8 +1,8 @@
 from loader import bot, base
-from typing import NoReturn
 from keyboards.reply import keyboards
+from image_creator import table_creator
 from config_data import config
-from default_handlers import player_list
+from handlers.default_handlers import player_list
 
 
 def check_result_tournament(id: int) -> None:
@@ -18,5 +18,5 @@ def check_result_tournament(id: int) -> None:
     for player in res:
         user_data = [str(player[config.NICKNAME_COLUMN])] + list(map(str, player[config.TOUR1_COLUMN:config.TOUR1_COLUMN + 15])) + [str(player[config.SUM_COLUMN])]
         ans.append(user_data)
-    main_table(ans, base.get_now_tour())
+    table_creator.main_table(ans, base.get_now_tour())
     bot.send_photo(id, open("main_table.png", 'rb'))

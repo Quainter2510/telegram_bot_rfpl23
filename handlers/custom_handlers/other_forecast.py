@@ -3,6 +3,7 @@ from telebot.types import Message
 from keyboards.reply import keyboards
 from helper_function import helper_function
 from config_data import config
+from image_creator import table_creator
 
 def get_other_forecasts(message: Message):
     if not config.ALL_FUNCTION_READY:
@@ -30,6 +31,6 @@ def get_other_forecasts(message: Message):
             self_res = base.get_other_forecast_match(id, match[0])
             points += helper_function.counting_of_points(match[1], self_res)
             data.append([match[0], match[1], self_res, helper_function.counting_of_points(match[1], self_res)])
-        result_tour(data, message.text, points, nickname)
+        table_creator.result_tour(data, message.text, points, nickname)
         img = open("result_tour.png", 'rb')
         bot.send_photo(message.chat.id, img, reply_markup=keyboards.main_menu_marcup())
