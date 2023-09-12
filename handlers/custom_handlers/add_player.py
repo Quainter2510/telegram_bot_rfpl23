@@ -1,11 +1,10 @@
 from loader import bot, base
 from config_data import config
 from telebot.types import Message 
-from typing import NoReturn 
 from keyboards.reply import keyboards
 
 @bot.message_handler(commands = ["add"])
-def add_player(message: Message) -> NoReturn:
+def add_player(message: Message) -> None:
     # Админ добавляет пользователя после оплаты
     if message.chat.id != config.ADMIN_ID:
         return

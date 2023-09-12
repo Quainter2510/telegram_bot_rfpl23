@@ -1,9 +1,8 @@
 import sqlite3
 from typing import List, Tuple
-from config_data import config
+from config_data import relations
 from matches_parser import parser
-from helper_function import helper_function
-# from relations import *
+from helper_function import helper_func
 
 CREATE_TABLES = '''
 cursor.execute("CREATE TABLE matches(tour INTEGER, date DATETIME, match TEXT, result TEXT)")
@@ -18,12 +17,15 @@ cursor.execute("""CREATE TABLE users(id_player BIGINT, lastPosition INTEGER DEFA
          tour22 INTEGER DEFAULT 0, tour23 INTEGER DEFAULT 0, tour24 INTEGER DEFAULT 0, tour25 INTEGER DEFAULT 0, tour26 INTEGER DEFAULT 0,
          tour27 INTEGER DEFAULT 0, tour28 INTEGER DEFAULT 0, tour29 INTEGER DEFAULT 0, tour30 INTEGER DEFAULT 0, sum INTEGER DEFAULT 0)""")
 '''
-class DataBase:
+class MyDataBase:
     def __init__(self):
-        # self.db = sqlite3.connect('/root/rfpl23/rfpl_db.db', check_same_thread=False)
-        self.db = sqlite3.connect('rfpl_db.db', check_same_thread=False)
-        self.cursor = self.db.cursor() 
-        
+        try: 
+            # self.db = sqlite3.connect('/root/rfpl23/rfpl_db.db', check_same_thread=False)
+            self.db = sqlite3.connect('rfpl_db.db', check_same_thread=False)
+            self.cursor = self.db.cursor() 
+        except sqlite3.Error as error:
+            print(error)
+
 
     def fill_matches(self, matches: Tuple) -> None:
         # Заполнение таблицы матчей
@@ -144,7 +146,7 @@ class DataBase:
         if not tour:
             return
         self.cursor.execute(
-            f'UPDATE users SET {config.TOUR_DCT[tour]} = "{points}" WHERE id_player = "{id_player}"')
+            f'UPDATE users SET {relations.TOUR_DCT[tour]} = "{points}" WHERE id_player = "{id_player}"')
         self.db.commit()
         self.cursor.execute(f'SELECT * from users WHERE  id_player = "{id_player}"')
         q = self.cursor.fetchall()
@@ -208,5 +210,5 @@ class DataBase:
         ans = 0
         for elem in result:
             forecast = self.get_forecast_match(id_player, elem[0])
-            ans += helper_function.counting_of_points(elem[1], forecast[0])
+            ans += helper_func.counting_of_points(elem[1], forecast[0])
         return ans

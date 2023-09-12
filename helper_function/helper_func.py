@@ -2,7 +2,7 @@ from config_data import config
 from typing import List
 
 def check_correct_tour(str: str) -> bool:
-    if str in config.HUMAN_DCT.keys():
+    if str in relations.HUMAN_DCT.keys():
         return True
     return False
 

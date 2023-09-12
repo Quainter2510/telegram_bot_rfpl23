@@ -1,5 +1,5 @@
 from telebot import types
-from config_data import config
+from config_data import config, relations
 from loader import base
 
 
@@ -19,7 +19,7 @@ def main_menu_marcup() -> types.ReplyKeyboardMarkup:
 def tour_menu_marcup() -> types.ReplyKeyboardMarkup:
     marcup = types.ReplyKeyboardMarkup(one_time_keyboard=True)
     marcup.add(types.KeyboardButton("Вернуться в меню"))
-    for i in config.HUMAN_DCT.keys():
+    for i in relations.HUMAN_DCT.keys():
         marcup.add(types.KeyboardButton(f"{i}"))
     return marcup
 
@@ -28,7 +28,7 @@ def short_tour_menu_marcup() -> types.ReplyKeyboardMarkup:
     marcup = types.ReplyKeyboardMarkup(one_time_keyboard=True)
     marcup.add(types.KeyboardButton("Вернуться в меню"))
     now_tour = base.get_now_tour()[0]
-    for i in list(config.HUMAN_DCT.keys())[now_tour - 3:min(now_tour + 3, max(config.TOUR_DCT.keys()) - 1)]:
+    for i in list(relations.HUMAN_DCT.keys())[now_tour - 3:min(now_tour + 3, max(relations.TOUR_DCT.keys()) - 1)]:
         marcup.add(types.KeyboardButton(f"{i}"))
     return marcup
 

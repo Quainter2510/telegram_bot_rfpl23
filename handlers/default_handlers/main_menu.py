@@ -1,6 +1,6 @@
 from loader import bot
 from keyboards.reply.keyboards import short_tour_menu_marcup, main_menu_marcup
-from custom_handlers import *
+from handlers.custom_handlers import *
 
 
 @bot.message_handler(content_types=["text"])
