@@ -16,6 +16,5 @@ def parser():
     res.sort(key=lambda x: x[0])
     for i in range(len(res)):
         res[i].insert(0, i // config.COUNT_MATCHES_IN_TOUR + 1)
-    print(res)
     # res = list(filter(lambda x: x[0] == tour, q))
     return res

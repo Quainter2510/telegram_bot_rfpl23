@@ -1,12 +1,14 @@
 import os
 from dotenv import load_dotenv, find_dotenv
+from config_data.load_settings import load
 
 if not find_dotenv():
     print("not found .env")
 else:
     load_dotenv()
 
-ALL_FUNCTION_READY = False  
+ALL_FUNCTION_READY = None 
+load()
 
 BOT_TOKEN=os.getenv("TEST_BOT_TOKEN")
 ADMIN_ID = os.getenv("ADMIN_ID")

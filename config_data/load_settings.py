@@ -1,5 +1,9 @@
 import json
 from config_data import config
+from distutils.util import strtobool
 
-with open("settings.json", "r") as settings:
-    config.ALL_FUNCTION_READY = json.load(settings)["all_func_ready"]
+def load():
+    with open("settings.json", "r") as settings:
+        setup = json.load(settings)
+        config.ALL_FUNCTION_READY = strtobool(setup["all_func_ready"])
+

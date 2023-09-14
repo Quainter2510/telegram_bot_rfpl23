@@ -93,8 +93,9 @@ class MyDataBase:
     def get_forecast_match(self, id_player: int, match: str) -> str: # !!!!!!!!!!!!!!!!!!
         # Вернуть прогноз на заданный матч от пользователя
         self.cursor.execute(
-            f'SELECT result FROM  forecast WHERE id_player = "{id_player}" AND match = "{match}"')
-        return self.cursor.fetchone()[0]
+            f'SELECT result FROM forecast WHERE id_player = "{id_player}" AND match = "{match}"')
+        ans = self.cursor.fetchone()
+        return ans[0]
 
     def get_other_forecast_match(self, id_player: int, match: str) -> str:
         # Вернуть прогноз пользователя на заданный матч
@@ -116,7 +117,7 @@ class MyDataBase:
         all_matches = self.get_all_tour_matches(tour)
         res = []
         for match in all_matches:
-            res.append(match[0] + "—" + self.get_forecast_match(id_player, match[0])[0])
+            res.append(match[0] + "—" + self.get_forecast_match(id_player, match[0]))
         return res
 
     def get_result_tournament(self) -> Tuple:
@@ -161,8 +162,8 @@ class MyDataBase:
         # Вернуть текущий тур
         self.cursor.execute(f"SELECT tour FROM matches WHERE date >= datetime('now','localtime')")
         if self.cursor.fetchone() is None:
-            return (16,)
-        return self.cursor.fetchone()
+            return 30
+        return self.cursor.fetchone()[0]
 
     def get_all_id_player(self) -> Tuple:
         # Вернуть кортеж с таблицей пользователей
@@ -210,5 +211,5 @@ class MyDataBase:
         ans = 0
         for elem in result:
             forecast = self.get_forecast_match(id_player, elem[0])
-            ans += helper_func.counting_of_points(elem[1], forecast[0])
+            ans += helper_func.counting_of_points(elem[1], forecast)
         return ans

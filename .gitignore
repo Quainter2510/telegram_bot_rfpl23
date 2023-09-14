@@ -7,6 +7,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+images/ready_tables/*
 .Python
 build/
 develop-eggs/

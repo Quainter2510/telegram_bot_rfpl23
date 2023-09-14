@@ -2,7 +2,6 @@ from datetime import *
 
 def date_transform(datetr: str) -> str:
     d = list(map(int, reversed(datetr.split('/'))))
-    print(d)
     d = date(*d)
     return d.strftime("%Y-%m-%d")
 

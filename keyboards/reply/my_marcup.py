@@ -27,7 +27,7 @@ def tour_menu_marcup() -> types.ReplyKeyboardMarkup:
 def short_tour_menu_marcup() -> types.ReplyKeyboardMarkup:
     marcup = types.ReplyKeyboardMarkup(one_time_keyboard=True)
     marcup.add(types.KeyboardButton("Вернуться в меню"))
-    now_tour = base.get_now_tour()[0]
+    now_tour = base.get_now_tour()
     for i in list(relations.HUMAN_DCT.keys())[now_tour - 3:min(now_tour + 3, max(relations.TOUR_DCT.keys()) - 1)]:
         marcup.add(types.KeyboardButton(f"{i}"))
     return marcup

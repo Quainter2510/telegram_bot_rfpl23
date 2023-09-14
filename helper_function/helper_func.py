@@ -1,4 +1,4 @@
-from config_data import config
+from config_data import relations
 from typing import List
 
 def check_correct_tour(str: str) -> bool:
