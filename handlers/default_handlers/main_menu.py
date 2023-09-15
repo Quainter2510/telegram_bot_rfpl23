@@ -8,28 +8,28 @@ from handlers.custom_handlers.get_main_table import check_result_tournament
 from handlers.custom_handlers.other_forecast import *
 from handlers.custom_handlers.update import *
 
+def ask_tour(message, func):
+    bot.send_message(message.chat.id, "Выберите тур", 
+                    reply_markup=short_tour_menu_marcup())
+    bot.register_next_step_handler(message, func)
+
 
 @bot.message_handler(content_types=["text"])
 def text(message):
     if message.text == "Сделать прогноз":
-        bot.send_message(message.chat.id, "Выберите тур", reply_markup=short_tour_menu_marcup())
-        bot.register_next_step_handler(message, set_tour_forecast)
+        ask_tour(message, set_tour_forecast)
     elif message.text == "Изменить прогноз":
-        bot.send_message(message.chat.id, "Выберите тур", reply_markup=short_tour_menu_marcup())
-        bot.register_next_step_handler(message, change_choice_tour)
+        ask_tour(message, change_choice_tour)
     elif message.text == "Посмотреть итог тура":
-        bot.send_message(message.chat.id, "Выберите тур", reply_markup=short_tour_menu_marcup())
-        bot.register_next_step_handler(message, check_result_tour)
+        ask_tour(message, check_result_tour)
     elif message.text == "Посмотреть свой прогноз":
-        bot.send_message(message.chat.id, "Выберите тур", reply_markup=short_tour_menu_marcup())
-        bot.register_next_step_handler(message, check_forecast_tour)
-    elif message.text == "Посмотреть турнирную таблицу":
-        check_result_tournament(message.chat.id)
+        ask_tour(message, check_forecast_tour)
     elif message.text == "Посмотреть прогноз всех участников":
-        bot.send_message(message.chat.id, "Выберите тур", reply_markup=short_tour_menu_marcup())
-        bot.register_next_step_handler(message, get_other_forecasts)
+        ask_tour(message, get_other_forecasts)
     elif message.text == "Обновить":
         update(message)
     elif message.text.lower() in ("вернуться в меню", "сброс"):
         bot.send_message(message.chat.id, "Вы вернулись в главное меню",
                          reply_markup=main_menu_marcup())
+    else:
+        bot.send_message(message.chat.id, "Неизвестная команда", reply_markup=main_menu_marcup())

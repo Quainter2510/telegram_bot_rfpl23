@@ -6,6 +6,7 @@ from telebot.types import Message
 from helper_function import helper_func
 from handlers.custom_handlers.get_my_forecast import output_forecast
 
+
 def set_tour_forecast(message: Message):
     if message.text.lower() in ("вернуться в меню", "сброс"):
         bot.send_message(message.chat.id, "Вы вернулись в главное меню",

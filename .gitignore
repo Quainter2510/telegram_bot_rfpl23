@@ -131,4 +131,5 @@ dmypy.json
 .idea/*
 .env
 rfpl_db.db
+cl_db.db
 test.py

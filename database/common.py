@@ -1,28 +1,31 @@
 import sqlite3
 from typing import List, Tuple
 from config_data import relations
-from matches_parser import parser
+from matches_parser.parser import parser
 from helper_function import helper_func
 
-CREATE_TABLES = '''
-cursor.execute("CREATE TABLE matches(tour INTEGER, date DATETIME, match TEXT, result TEXT)")
-
-cursor.execute("CREATE TABLE forecast(date DATE, match TEXT, id_player BIGINT, result TEXT)")
-
-cursor.execute("""CREATE TABLE users(id_player BIGINT, lastPosition INTEGER DEFAULT 0, tour1 INTEGER DEFAULT 0, tour2 INTEGER DEFAULT 0,
-         tour3 INTEGER DEFAULT 0, tour4 INTEGER DEFAULT 0, tour5 INTEGER DEFAULT 0, tour6 INTEGER DEFAULT 0, tour6 INTEGER DEFAULT 0,
-         tour7 INTEGER DEFAULT 0, tour8 INTEGER DEFAULT 0, tour9 INTEGER DEFAULT 0, tour10 INTEGER DEFAULT 0, tour11 INTEGER DEFAULT 0,
-         tour12 INTEGER DEFAULT 0, tour13 INTEGER DEFAULT 0, tour14 INTEGER DEFAULT 0, tour15 INTEGER DEFAULT 0, tour16 INTEGER DEFAULT 0,
-         tour17 INTEGER DEFAULT 0, tour18 INTEGER DEFAULT 0, tour19 INTEGER DEFAULT 0, tour20 INTEGER DEFAULT 0, tour21 INTEGER DEFAULT 0,
-         tour22 INTEGER DEFAULT 0, tour23 INTEGER DEFAULT 0, tour24 INTEGER DEFAULT 0, tour25 INTEGER DEFAULT 0, tour26 INTEGER DEFAULT 0,
-         tour27 INTEGER DEFAULT 0, tour28 INTEGER DEFAULT 0, tour29 INTEGER DEFAULT 0, tour30 INTEGER DEFAULT 0, sum INTEGER DEFAULT 0)""")
+CREATE_TABLES_MATCHES = '''
+CREATE TABLE IF NOT EXISTS matches(tour INTEGER, date DATETIME, match TEXT, result TEXT);
+'''
+CREATE_TABLES_FORECAST = '''
+CREATE TABLE IF NOT EXISTS forecast(date DATE, match TEXT, id_player BIGINT, result TEXT);
+'''
+CREATE_TABLES_USERS = '''
+CREATE TABLE IF NOT EXISTS users(id_player BIGINT, lastPosition INTEGER DEFAULT 0, tour1 INTEGER DEFAULT 0, tour2 INTEGER DEFAULT 0,
+         tour3 INTEGER DEFAULT 0, tour4 INTEGER DEFAULT 0, tour5 INTEGER DEFAULT 0,  tour6 INTEGER DEFAULT 0, tour7 INTEGER DEFAULT 0, tour8 INTEGER DEFAULT 0, tour9 INTEGER DEFAULT 0, tour10 INTEGER DEFAULT 0, tour11 INTEGER DEFAULT 0, tour12 INTEGER DEFAULT 0, sum INTEGER DEFAULT 0);
 '''
 class MyDataBase:
     def __init__(self):
         try: 
-            # self.db = sqlite3.connect('/root/rfpl23/rfpl_db.db', check_same_thread=False)
-            self.db = sqlite3.connect('rfpl_db.db', check_same_thread=False)
+            # self.db = sqlite3.connect('/root/rfpl23/cl_db.db', check_same_thread=False)
+            self.db = sqlite3.connect('cl_db.db', check_same_thread=False)
             self.cursor = self.db.cursor() 
+            self.cursor.execute(CREATE_TABLES_FORECAST)
+            self.cursor.execute(CREATE_TABLES_MATCHES)
+            self.cursor.execute(CREATE_TABLES_USERS)
+            matches_count = self.cursor.execute("SELECT count(*) FROM matches").fetchone()[0]
+            # if matches_count == 0:
+            self.update_matches()
         except sqlite3.Error as error:
             print(error)
 

@@ -20,4 +20,4 @@ NICKNAME_COLUMN = 0
  
 
 start_info_msg = """Для участия необходимо перевести 1200 рублей Александрову Павлу на номер 89205450183 (сбер) с указанием никнейма в комментарии. После подтверждения перевода вы будете добавлены в турнир."""
-URL = 'https://www.livecup.run/football/russia/premier-league/calendar-tour/'
+URL = 'https://www.livecup.run/football/champions-league/calendar/'
