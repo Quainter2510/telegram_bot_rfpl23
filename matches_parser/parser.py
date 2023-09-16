@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from helper_function.datetime_func import *
 from config_data import config, relations
 
+
 def parser():
     response = requests.get(config.URL)
     soup = BeautifulSoup(response.text, 'html.parser')
