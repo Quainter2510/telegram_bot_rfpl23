@@ -11,7 +11,7 @@ CREATE_TABLES_FORECAST = '''
 CREATE TABLE IF NOT EXISTS forecast(date DATE, match TEXT, id_player BIGINT, result TEXT);
 '''
 CREATE_TABLES_USERS = '''
-CREATE TABLE IF NOT EXISTS users(id_player BIGINT, lastPosition INTEGER DEFAULT 0, tour1 INTEGER DEFAULT 0, tour2 INTEGER DEFAULT 0,
+CREATE TABLE IF NOT EXISTS users(nickname TEXT, id_player BIGINT, lastPosition INTEGER DEFAULT 0, tour1 INTEGER DEFAULT 0, tour2 INTEGER DEFAULT 0,
          tour3 INTEGER DEFAULT 0, tour4 INTEGER DEFAULT 0, tour5 INTEGER DEFAULT 0,  tour6 INTEGER DEFAULT 0, tour7 INTEGER DEFAULT 0, tour8 INTEGER DEFAULT 0, tour9 INTEGER DEFAULT 0, tour10 INTEGER DEFAULT 0, tour11 INTEGER DEFAULT 0, tour12 INTEGER DEFAULT 0, sum INTEGER DEFAULT 0);
 '''
 class MyDataBase:
@@ -24,8 +24,8 @@ class MyDataBase:
             self.cursor.execute(CREATE_TABLES_MATCHES)
             self.cursor.execute(CREATE_TABLES_USERS)
             matches_count = self.cursor.execute("SELECT count(*) FROM matches").fetchone()[0]
-            # if matches_count == 0:
-            self.update_matches()
+            if matches_count == 0:
+                self.update_matches()
         except sqlite3.Error as error:
             print(error)
 
@@ -182,7 +182,7 @@ class MyDataBase:
     def update_matches(self) -> None:
         # перезаписать матчи
 
-        # self.cursor.execute(f'DELETE from matches')
+        self.cursor.execute(f'DELETE from matches')
         res = parser()
         self.fill_matches(res)
 
