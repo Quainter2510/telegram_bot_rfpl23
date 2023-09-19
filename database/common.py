@@ -1,6 +1,6 @@
 import sqlite3
 from typing import List, Tuple
-from config_data import relations
+from config_data import relations, config
 from matches_parser.parser import parser
 from helper_function import helper_func
 
@@ -155,7 +155,7 @@ class MyDataBase:
         self.cursor.execute(f'SELECT * from users WHERE  id_player = "{id_player}"')
         q = self.cursor.fetchall()
         sum_points = 0
-        for i in range(3, 33):
+        for i in range(config.TOUR1_COLUMN, config.NUMBER_OF_TOUR):
             sum_points += q[0][i]
         self.cursor.execute(
             f'UPDATE users SET sum = "{sum_points}" WHERE id_player = "{id_player}"')

@@ -17,7 +17,6 @@ def check_forecast_tour(message: Message) -> None:
     output_forecast(relations.HUMAN_DCT[message.text], message.chat.id)
 
 def output_forecast(selected_tour: int, id: int) -> None:
-    print(selected_tour)
     ans = f"Ваш прогноз на {relations.HUMAN_TOUR[selected_tour]} :\n\n"
     res = base.get_forecast_tour(id, selected_tour)
     for match in res:

@@ -7,7 +7,7 @@ import handlers
 if __name__ == '__main__':
     while True:
         try:
-            bot.infinity_polling()
+            bot.polling(none_stop=True)
         except Exception as exc:
             bot.send_message(config.ADMIN_ID, exc, reply_markup=my_marcup.main_menu_marcup())
 
