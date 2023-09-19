@@ -1,8 +1,7 @@
-from telebot import TeleBot
-# from telebot.storage import StateMemoryStorage
+from telebot import TeleBot, apihelper
 from config_data import config
 from database.common import MyDataBase
 
-# storage = StateMemoryStorage()
+apihelper.SESSION_TIME_TO_LIVE = 5 * 60
 bot = TeleBot(token=config.BOT_TOKEN)
 base = MyDataBase()
