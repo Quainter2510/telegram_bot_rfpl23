@@ -152,10 +152,10 @@ class MyDataBase:
         self.cursor.execute(
             f'UPDATE users SET {relations.TOUR_DCT[tour]} = "{points}" WHERE id_player = "{id_player}"')
         self.db.commit()
-        self.cursor.execute(f'SELECT * from users WHERE  id_player = "{id_player}"')
+        self.cursor.execute(f'SELECT * from users WHERE id_player = "{id_player}"')
         q = self.cursor.fetchall()
         sum_points = 0
-        for i in range(config.TOUR1_COLUMN, config.NUMBER_OF_TOUR):
+        for i in range(config.TOUR1_COLUMN, config.TOUR1_COLUMN + config.NUMBER_OF_TOUR):
             sum_points += q[0][i]
         self.cursor.execute(
             f'UPDATE users SET sum = "{sum_points}" WHERE id_player = "{id_player}"')
