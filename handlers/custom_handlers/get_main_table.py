@@ -43,7 +43,7 @@ def check_result_tournament(message: Message) -> None:
     ans = []
     # player: nick, id, last_pos, tourN, sum
     for player in res:
-        user_data = [str(player[config.NICKNAME_COLUMN])] + list(map(str, player[config.TOUR1_COLUMN:config.TOUR1_COLUMN + 15])) + [str(player[config.SUM_COLUMN])]
+        user_data = [str(player[config.NICKNAME_COLUMN])] + list(map(str, player[config.TOUR1_COLUMN:config.TOUR1_COLUMN + config.NUMBER_OF_TOUR])) + [str(player[config.SUM_COLUMN])]
         ans.append(user_data)
     table_creator.main_table(ans, base.get_now_tour())
     bot.send_photo(message.chat.id, open("images/ready_tables/main_table.png", 'rb'))
