@@ -165,7 +165,7 @@ class MyDataBase:
         # Вернуть текущий тур
         self.cursor.execute(f"SELECT tour FROM matches WHERE date >= datetime('now','localtime')")
         if self.cursor.fetchone() is None:
-            return config.NUMBER_OF_TOUR
+            return config.NUMBER_OF_TOUR + 1
         return self.cursor.fetchone()[0]
 
     def get_all_id_player(self) -> Tuple:
